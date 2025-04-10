@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -35,7 +34,7 @@ const LoginForm = () => {
           label="Password"
           placeholder="******************"
         />
-        <Button type="submit" className="bg-primary text-white w-full mt-10 py-6">
+        <Button type="submit" className="bg-primary text-white w-full mt-10 py-6 rounded-[0.625rem]">
           Login
         </Button>
       </form>

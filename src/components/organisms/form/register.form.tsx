@@ -66,7 +66,7 @@ const RegisterForm = () => {
           }
         />
       </div>
-      <Button type="submit" className="bg-primary text-white w-full py-6">
+      <Button type="submit" className="bg-primary text-white w-full py-6 rounded-[0.625rem]">
         Sign up
       </Button>
       </form>

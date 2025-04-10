@@ -17,22 +17,27 @@ const pageTitles = {
     description: "Let’s get you started by creating your account",
     goto: "login",
   },
+  "verify-otp": {
+    title: "Verification",
+    description: "Check your email for the verification code",
+    goto: "login",
+  },
 };
 
 const AuthLayout = () => {
   const { pathname } = useLocation();
 
   let page = pathname.split("/").pop() as keyof typeof pageTitles;
-  // page = page?.toString().replace("-", "_") ;
-  const pageTitle = pageTitles[page] || pageTitles.login;
+  const pageKey = Object.keys(pageTitles).includes(page) ? page : "login";
+  const pageTitle = pageTitles[pageKey];
 
   return (
     <div className="bg-white w-full">
       <div className="grid sm:grid-cols-2">
-        <div className="pt-6 px-16">
-          <div className="py-4">
+        <div className="pt-10 px-16">
+          <Link to="/" className="">
             <img src={logo} alt="" loading="lazy" />
-          </div>
+          </Link>
 
           <div className="pt-8 pb-6">
             <header className="flex flex-col items-start mb-10">
@@ -47,7 +52,7 @@ const AuthLayout = () => {
 
             <Outlet />
 
-            {page.toString() == ("login" || "create-account") && (
+            {["login", "create-account"].includes(page) && (
               <div className="inline-flex w-full items-center justify-center gap-2 py-2 font-medium text-sm">
                 <p className="text-text-secondary">
                   {page.toString() == "create-account"
@@ -55,7 +60,7 @@ const AuthLayout = () => {
                     : "You don’t have an account?"}
                 </p>
                 <Link to={pageTitle?.goto} className="text-primary ">
-                {page.toString() ==  "Create one" ? "":"Log in"}
+                  {page.toString() == "login" ? "Create one" : "Log in"}
                 </Link>
               </div>
             )}
