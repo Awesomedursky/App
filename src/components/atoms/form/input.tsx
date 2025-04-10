@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import React from "react";
 import { Control } from "react-hook-form";
-import { text } from "stream/consumers";
+import { Link, useLocation } from "react-router";
 
 interface InputFieldProps {
   control: Control<any>;
@@ -33,6 +33,9 @@ const InputField: React.FC<InputFieldProps> = ({
   inputClassName,
   itemClassName,
 }) => {
+  const { pathname } = useLocation();
+
+  const isLoginPage = pathname.includes("login");
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -46,11 +49,19 @@ const InputField: React.FC<InputFieldProps> = ({
       name={name}
       render={({ field }) => (
         <FormItem className={`mb-0 py-2.5  ${itemClassName}`}>
-          {label && (
-            <FormLabel className="text-sm lg:text-base text-primary-dark font-medium mb-1">
-              {label}
-            </FormLabel>
-          )}
+          <div
+            className={`${isLoginPage && "flex justify-between items-center"}`}
+          >
+            {label && (
+              <FormLabel className="text-sm lg:text-base text-primary-dark font-medium mb-1">
+                {label}
+              </FormLabel>
+            )}
+
+            {isLoginPage && type == "password" && (
+              <Link to="/forgot-password" className="text-['#837E8E']">Forgot Password</Link>
+            )}
+          </div>
           <FormControl>
             <div
               className={`${
@@ -59,14 +70,22 @@ const InputField: React.FC<InputFieldProps> = ({
             >
               <Input
                 placeholder={placeholder}
-                type={showPassword && type == 'password'? "text" : type}
+                type={showPassword && type == "password" ? "text" : type}
                 className={`text-sm lg:text-base rounded-lg py-6 focus:outline-0 focus-visible:ring-0 focus-visible:border-primary-dark placeholder:text-text-secondary ${inputClassName}`}
                 {...field}
               />
 
               {type == "password" && (
-                <button type="button" className="-ml-10 text-text-secondary" onClick={toggleShowPassword}>
-                  {showPassword ? <EyeOffIcon size={18}/> : <EyeIcon size={18}/>}
+                <button
+                  type="button"
+                  className="-ml-10 text-text-secondary"
+                  onClick={toggleShowPassword}
+                >
+                  {showPassword ? (
+                    <EyeOffIcon size={18} />
+                  ) : (
+                    <EyeIcon size={18} />
+                  )}
                 </button>
               )}
             </div>

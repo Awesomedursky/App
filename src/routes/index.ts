@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import AuthLayout from "@/components/_layout/auth.layout";
 
 import Homepage from "../pages/Homepage";
-import { CreateAccount } from "@/pages";
+import { CreateAccount, Login } from "@/pages";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "create-account",
         Component: CreateAccount,
+      },
+      {
+        path: "login",
+        Component: Login,
       },
     ],
   },
